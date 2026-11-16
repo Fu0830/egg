@@ -540,86 +540,123 @@
       letter-spacing: .06em;
     }
 
-    .gallery-stage {
-      position: relative;
-      height: 286px;
-      margin: 4px -4px 14px;
-      overflow: hidden;
-      isolation: isolate;
+    .album-menu {
+      display: grid;
+      gap: 12px;
+      margin: 8px 0 12px;
     }
-    .gallery-stage::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 220px;
-      height: 220px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 232, 167, .5), transparent 68%);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .gallery-track {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-    .album-card {
-      position: absolute;
-      left: 50%;
-      top: 18px;
-      width: 208px;
-      height: 230px;
-      margin-left: -104px;
-      border-radius: 32px;
-      background: var(--eggwhite);
-      border: 1px solid var(--line);
-      box-shadow: 0 18px 36px rgba(176, 116, 18, .18);
-      padding: 16px 16px 14px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      transition: transform .46s cubic-bezier(.22, 1, .36, 1), opacity .34s ease, filter .34s ease, box-shadow .34s ease;
-    }
-    .album-card h3 {
-      font-size: 18px;
-      letter-spacing: .08em;
-      margin: 0 0 7px;
-      color: var(--ink);
-    }
-    .album-card p {
-      margin: 0;
-      font-size: 12px;
-      line-height: 1.55;
-      color: var(--ink-soft);
-    }
-    .album-preview {
+    .album-menu-btn {
       width: 100%;
-      min-height: 104px;
-      margin: 8px 0 10px;
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--eggwhite);
+      box-shadow: 0 10px 22px rgba(176, 116, 18, .13);
+      padding: 13px 16px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 7px;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      color: var(--ink);
+      text-align: left;
+      transition: transform .22s cubic-bezier(.34, 1.3, .64, 1), box-shadow .22s ease, background .22s ease;
+    }
+    .album-menu-btn:hover,
+    .album-menu-btn:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(176, 116, 18, .18);
+      background: #fffaf0;
+    }
+    .album-menu-btn.active { background: var(--cream-2); }
+    .album-menu-copy { min-width: 0; }
+    .album-menu-copy strong {
+      display: block;
+      font-size: 16px;
+      letter-spacing: .06em;
+      margin-bottom: 4px;
+    }
+    .album-menu-copy span {
+      display: block;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .album-menu-count {
+      flex: 0 0 auto;
+      min-width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--yolk-soft, #ffe7a8);
+      color: var(--yolk-deep);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .album-panel {
+      display: none;
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 92px;
+      bottom: 76px;
+      border-radius: 28px;
+      background: rgba(255, 250, 239, .98);
+      border: 1px solid var(--line);
+      box-shadow: 0 24px 48px rgba(176, 116, 18, .24);
+      z-index: 8;
+      flex-direction: column;
       overflow: hidden;
     }
-    .album-preview img {
-      width: 56px;
-      height: 78px;
-      object-fit: cover;
-      border-radius: 17px;
+    .album-panel.open { display: flex; }
+    .album-panel-head {
+      padding: 14px 16px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px dashed var(--line);
+    }
+    .album-panel-title {
+      font-size: 17px;
+      letter-spacing: .08em;
+      margin: 0;
+    }
+    .album-panel-close {
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--cream-2);
+      color: var(--ink);
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(176, 116, 18, .14);
+    }
+    .album-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 14px 16px 18px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+      scrollbar-width: thin;
+    }
+    .album-scroll img {
+      display: block;
+      width: 100%;
+      border-radius: 20px;
       border: 1px solid var(--line);
-      box-shadow: 0 6px 14px rgba(176, 116, 18, .12);
-      transition: transform .24s cubic-bezier(.34, 1.3, .64, 1), box-shadow .24s ease, opacity .24s ease;
+      box-shadow: 0 10px 22px rgba(176, 116, 18, .14);
+      object-fit: contain;
+      background: var(--eggwhite);
       cursor: zoom-in;
     }
-    .album-preview img.wide { aspect-ratio: 16 / 10; height: 54px; }
-    .album-preview img:hover,
-    .album-preview img.on { transform: translateY(-4px) scale(1.08); box-shadow: 0 12px 22px rgba(176, 116, 18, .2); }
     .photo-lightbox {
       position: fixed;
       inset: 0;
@@ -688,30 +725,7 @@
       cursor: pointer;
       box-shadow: 0 6px 14px rgba(66, 37, 4, .2);
     }
-    .album-card.album-current { transform: translate(-50%, 0) scale(1); opacity: 1; filter: none; z-index: 3; box-shadow: 0 22px 42px rgba(176, 116, 18, .22); }
-    .album-card.album-left { transform: translate(-72%, 8px) scale(.82) rotate(-4deg); opacity: .48; filter: saturate(.86); z-index: 1; }
-    .album-card.album-right { transform: translate(-28%, 8px) scale(.82) rotate(4deg); opacity: .48; filter: saturate(.86); z-index: 1; }
-    .album-card.album-hidden-left { transform: translate(-118%, 16px) scale(.72) rotate(-8deg); opacity: 0; z-index: 0; }
-    .album-card.album-hidden-right { transform: translate(18%, 16px) scale(.72) rotate(8deg); opacity: 0; z-index: 0; }
-    .gallery-dots {
-      display: flex;
-      justify-content: center;
-      gap: 9px;
-      margin-bottom: 8px;
-    }
-    .gallery-dots button {
-      border: 0;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #e8cf93;
-      padding: 0;
-      cursor: pointer;
-      transition: all .22s cubic-bezier(.34, 1.3, .64, 1);
-    }
-    .gallery-dots button.on { width: 28px; border-radius: 999px; background: var(--yolk); }
     .album-title { margin-top: 8px; }
-    .gallery-stage { padding-top: 22px; }
     .gallery-hint {
       text-align: center;
       font-size: 13px;
@@ -919,52 +933,62 @@
         <div class="card-bottom"><span>DANDAN · HEART</span><span>06</span></div>
       </article>
 
-      <!-- 07 转盘相册 -->
+      <!-- 07 按钮入口相册 -->
       <article class="card" data-index="6">
         <div class="card-top"><span><span class="dot">✦</span>ALBUM · 相册</span><span>07 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title album-title">精选相册</h2>
-          <div class="section-kicker">TURN THE EGG ALBUM</div>
-          <div class="gallery-stage" id="galleryStage" aria-label="交互式转盘相册">
-            <div class="gallery-track" id="galleryTrack">
-              <div class="album-card" data-album="0">
-                <h3>扫码送蛋</h3>
-                <div class="album-preview" aria-label="扫码送蛋相册预览">
-                  <img src="p1-qr.webp" alt="扫码送蛋二维码" class="on" />
-                </div>
-                <p>扫码即可添加蛋蛋，开启专属小窝。</p>
-              </div>
-              <div class="album-card" data-album="1">
-                <h3>定制排面</h3>
-                <div class="album-preview" aria-label="定制排面相册预览">
-                  <img src="p2-paid.webp" alt="定制排面截图一" class="wide on" />
-                  <img src="p3-paid.webp" alt="定制排面截图二" class="wide" />
-                </div>
-                <p>按喜好安排细节，把心意摆到台面上。</p>
-              </div>
-              <div class="album-card" data-album="2">
-                <h3>幸福瞬间</h3>
-                <div class="album-preview" aria-label="幸福瞬间相册预览">
-                  <img src="p4-happy.webp" alt="幸福瞬间截图一" class="on" />
-                  <img src="p5-happy.webp" alt="幸福瞬间截图二" />
-                  <img src="p6-happy.webp" alt="幸福瞬间截图三" />
-                </div>
-                <p>记录聊天、惊喜和软软暖暖的片刻。</p>
-              </div>
-              <div class="album-card" data-album="3">
-                <h3>板评</h3>
-                <div class="album-preview" aria-label="板评相册预览">
-                  <img src="p7-board.webp" alt="板评小作文截图" class="on" />
-                  <img src="board-1.webp" alt="OK绷测评反馈截图" />
-                  <img src="board-2.webp" alt="OKB五星好评截图" />
-                  <img src="board-3.webp" alt="聊天好评截图" />
-                </div>
-                <p>真实反馈与相处感受，都被认真看见。</p>
-              </div>
-            </div>
+          <div class="section-kicker">PICK THE EGG ALBUM</div>
+          <div class="album-menu" id="albumMenu" aria-label="相册入口按钮">
+            <button type="button" class="album-menu-btn" data-album="0" aria-expanded="false">
+              <span class="album-menu-copy"><strong>扫码送蛋</strong><span>扫码添加蛋蛋，开启专属小窝</span></span>
+              <span class="album-menu-count">1</span>
+            </button>
+            <button type="button" class="album-menu-btn" data-album="1" aria-expanded="false">
+              <span class="album-menu-copy"><strong>定制排面</strong><span>按喜好安排细节，把心意摆上台面</span></span>
+              <span class="album-menu-count">2</span>
+            </button>
+            <button type="button" class="album-menu-btn" data-album="2" aria-expanded="false">
+              <span class="album-menu-copy"><strong>幸福瞬间</strong><span>记录聊天、惊喜和软软暖暖的片刻</span></span>
+              <span class="album-menu-count">3</span>
+            </button>
+            <button type="button" class="album-menu-btn" data-album="3" aria-expanded="false">
+              <span class="album-menu-copy"><strong>板评</strong><span>真实反馈与相处感受，都被认真看见</span></span>
+              <span class="album-menu-count">4</span>
+            </button>
           </div>
-          <div class="gallery-dots" id="galleryDots" aria-label="相册切换"></div>
-          <div class="gallery-hint">点按两侧卡片切换相册，缩略图点开可看大图</div>
+          <div class="gallery-hint">点按按钮打开相册，相册内上下滑动浏览，图片可点开看大图</div>
+
+          <section class="album-panel" id="albumPanel0" aria-label="扫码送蛋相册">
+            <header class="album-panel-head"><h3 class="album-panel-title">扫码送蛋</h3><button type="button" class="album-panel-close" data-close="0" aria-label="关闭相册">×</button></header>
+            <div class="album-scroll">
+              <img src="p1-qr.webp" alt="扫码送蛋二维码" />
+            </div>
+          </section>
+          <section class="album-panel" id="albumPanel1" aria-label="定制排面相册">
+            <header class="album-panel-head"><h3 class="album-panel-title">定制排面</h3><button type="button" class="album-panel-close" data-close="1" aria-label="关闭相册">×</button></header>
+            <div class="album-scroll">
+              <img src="p2-paid.webp" alt="定制排面截图一" />
+              <img src="p3-paid.webp" alt="定制排面截图二" />
+            </div>
+          </section>
+          <section class="album-panel" id="albumPanel2" aria-label="幸福瞬间相册">
+            <header class="album-panel-head"><h3 class="album-panel-title">幸福瞬间</h3><button type="button" class="album-panel-close" data-close="2" aria-label="关闭相册">×</button></header>
+            <div class="album-scroll">
+              <img src="p4-happy.webp" alt="幸福瞬间截图一" />
+              <img src="p5-happy.webp" alt="幸福瞬间截图二" />
+              <img src="p6-happy.webp" alt="幸福瞬间截图三" />
+            </div>
+          </section>
+          <section class="album-panel" id="albumPanel3" aria-label="板评相册">
+            <header class="album-panel-head"><h3 class="album-panel-title">板评</h3><button type="button" class="album-panel-close" data-close="3" aria-label="关闭相册">×</button></header>
+            <div class="album-scroll">
+              <img src="p7-board.webp" alt="板评小作文截图" />
+              <img src="board-1.webp" alt="OK绷测评反馈截图" />
+              <img src="board-2.webp" alt="OKB五星好评截图" />
+              <img src="board-3.webp" alt="聊天好评截图" />
+            </div>
+          </section>
         </div>
         <div class="card-bottom"><span>DANDAN · ALBUM</span><span>07</span></div>
       </article>
@@ -1021,35 +1045,32 @@
     document.getElementById('prev').addEventListener('click', () => show(current - 1));
     document.getElementById('next').addEventListener('click', () => show(current + 1));
 
-    const albumCards = Array.from(document.querySelectorAll('.album-card'));
-    const galleryDots = document.getElementById('galleryDots');
-    let albumIndex = 0;
+    const albumButtons = Array.from(document.querySelectorAll('.album-menu-btn'));
+    const albumPanels = Array.from(document.querySelectorAll('.album-panel'));
+    let openAlbum = -1;
 
-    albumCards.forEach((_, i) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.setAttribute('aria-label', `查看第 ${i + 1} 张相册`);
-      b.addEventListener('click', () => setAlbum(i));
-      galleryDots.appendChild(b);
-    });
-    const albumDots = Array.from(galleryDots.children);
-
-    function albumLayout(index) {
-      albumCards.forEach((card, i) => {
-        const diff = ((i - index) % albumCards.length + albumCards.length) % albumCards.length;
-        const cls = diff === 0 ? 'album-current'
-          : diff === 1 ? 'album-right'
-          : diff === albumCards.length - 1 ? 'album-left'
-          : diff < albumCards.length / 2 ? 'album-hidden-right' : 'album-hidden-left';
-        card.className = `album-card ${cls}`;
+    function closeAlbumPanels() {
+      openAlbum = -1;
+      albumPanels.forEach(panel => panel.classList.remove('open'));
+      albumButtons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
       });
-      albumDots.forEach((dot, i) => dot.classList.toggle('on', i === index));
     }
-    function setAlbum(index) {
-      albumIndex = (index + albumCards.length) % albumCards.length;
-      albumLayout(albumIndex);
+    function openAlbumPanel(index) {
+      const next = index === openAlbum ? -1 : index;
+      closeAlbumPanels();
+      if (next < 0) return;
+      openAlbum = next;
+      const panel = albumPanels[next];
+      const btn = albumButtons[next];
+      panel.classList.add('open');
+      btn.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
+      panel.querySelector('.album-scroll').scrollTop = 0;
     }
-    albumCards.forEach(card => card.addEventListener('click', () => setAlbum(Number(card.dataset.album))));
+    albumButtons.forEach(btn => btn.addEventListener('click', () => openAlbumPanel(Number(btn.dataset.album))));
+    document.querySelectorAll('.album-panel-close').forEach(btn => btn.addEventListener('click', () => closeAlbumPanels()));
 
     const lightbox = document.getElementById('photoLightbox');
     const lightboxImage = document.getElementById('lightboxImage');
@@ -1057,8 +1078,8 @@
     let lightboxList = [];
     let lightboxIndex = 0;
 
-    function openLightbox(card, target) {
-      lightboxList = Array.from(card.querySelectorAll('img'));
+    function openLightbox(panel, target) {
+      lightboxList = Array.from(panel.querySelectorAll('img'));
       lightboxIndex = lightboxList.indexOf(target);
       if (lightboxIndex < 0) lightboxIndex = 0;
       showLightbox();
@@ -1088,11 +1109,11 @@
     });
     lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 
-    albumCards.forEach(card => {
-      card.querySelectorAll('.album-preview img').forEach(img => {
+    albumPanels.forEach(panel => {
+      panel.querySelectorAll('.album-scroll img').forEach(img => {
         img.addEventListener('click', e => {
           e.stopPropagation();
-          openLightbox(card, img);
+          openLightbox(panel, img);
         });
       });
     });
@@ -1104,14 +1125,6 @@
       if (Math.abs(delta) > 44) show(current + (delta < 0 ? 1 : -1));
     }, { passive: true });
 
-    const galleryStage = document.getElementById('galleryStage');
-    let albumTouchStartX = 0;
-    galleryStage.addEventListener('touchstart', e => { albumTouchStartX = e.changedTouches[0].clientX; }, { passive: true });
-    galleryStage.addEventListener('touchend', e => {
-      const delta = e.changedTouches[0].clientX - albumTouchStartX;
-      if (Math.abs(delta) > 36) setAlbum(albumIndex + (delta < 0 ? 1 : -1));
-    }, { passive: true });
-
     document.addEventListener('keydown', e => {
       if (lightbox.classList.contains('open')) {
         if (e.key === 'Escape') closeLightbox();
@@ -1119,14 +1132,9 @@
         if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
         return;
       }
-      if (e.key === 'ArrowRight') {
-        if (current === cards.length - 2) setAlbum(albumIndex + 1);
-        else show(current + 1);
-      }
-      if (e.key === 'ArrowLeft') {
-        if (current === cards.length - 2) setAlbum(albumIndex - 1);
-        else show(current - 1);
-      }
+      if (e.key === 'Escape') closeAlbumPanels();
+      if (e.key === 'ArrowRight') show(current + 1);
+      if (e.key === 'ArrowLeft') show(current - 1);
     });
 
     const splash = document.getElementById('splash');
