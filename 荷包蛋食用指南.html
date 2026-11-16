@@ -604,33 +604,97 @@
       line-height: 1.7;
       color: var(--ink-soft);
     }
-    .board-preview {
+    .album-preview {
       width: 100%;
-      height: 142px;
+      min-height: 128px;
       margin: 6px 0 12px;
-      display: flex;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-content: center;
       justify-content: center;
-      gap: 7px;
+      gap: 8px;
       overflow: hidden;
     }
-    .board-preview img {
-      width: 54px;
-      height: 126px;
+    .album-preview img {
+      width: 100%;
+      height: 86px;
       object-fit: cover;
-      border-radius: 14px;
+      border-radius: 16px;
       border: 1px solid var(--line);
       box-shadow: 0 6px 14px rgba(176, 116, 18, .12);
-      opacity: .58;
-      transform: scale(.88);
-      transition: all .24s cubic-bezier(.34, 1.3, .64, 1);
-      cursor: pointer;
+      transition: transform .24s cubic-bezier(.34, 1.3, .64, 1), box-shadow .24s ease;
+      cursor: zoom-in;
     }
-    .board-preview img.on {
-      width: 76px;
-      height: 138px;
-      opacity: 1;
-      transform: scale(1);
+    .album-preview img.wide { aspect-ratio: 16 / 10; }
+    .album-preview img:hover,
+    .album-preview img.on { transform: translateY(-3px) scale(1.06); box-shadow: 0 10px 20px rgba(176, 116, 18, .18); }
+    .photo-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(83, 50, 8, .72);
+      backdrop-filter: blur(8px);
+    }
+    .photo-lightbox.open { display: flex; }
+    .lightbox-card {
+      position: relative;
+      max-width: min(92vw, 430px);
+      max-height: 86vh;
+      border-radius: 28px;
+      background: var(--eggwhite);
+      padding: 14px;
+      box-shadow: 0 24px 60px rgba(66, 37, 4, .32);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .lightbox-card img {
+      display: block;
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 18px;
+      margin: 0 auto;
+    }
+    .lightbox-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 253, 247, .94);
+      color: var(--ink);
+      font-size: 22px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(66, 37, 4, .2);
+    }
+    .lightbox-arrow#lightboxPrev { left: 8px; }
+    .lightbox-arrow#lightboxNext { right: 8px; }
+    .lightbox-caption {
+      font-size: 13px;
+      color: var(--ink-soft);
+      letter-spacing: .06em;
+    }
+    .lightbox-close {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 253, 247, .94);
+      color: var(--ink);
+      font-size: 20px;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(66, 37, 4, .2);
     }
     .album-card.album-current { transform: rotateY(0) translateZ(72px) scale(1); opacity: 1; filter: none; z-index: 3; }
     .album-card.album-left { transform: rotateY(28deg) translateX(-150px) translateZ(-70px) scale(.82); opacity: .34; filter: saturate(.8); z-index: 1; }
@@ -870,28 +934,38 @@
           <div class="gallery-stage" id="galleryStage" aria-label="交互式转盘相册">
             <div class="gallery-track" id="galleryTrack">
               <div class="album-card" data-album="0">
-                <div class="board-preview" aria-label="板评截图预览">
-                  <img src="board-1.webp" alt="OK绷测评反馈截图" class="on" />
-                  <img src="board-2.webp" alt="OKB五星好评截图" />
-                  <img src="board-3.webp" alt="聊天好评截图" />
+                <div class="album-preview" aria-label="扫码送蛋相册预览">
+                  <img src="assets/p1-qr.webp" alt="扫码送蛋二维码" class="on" />
                 </div>
-                <h3>板评</h3>
-                <p>收集宝宝的真实反馈与相处感受，每一条评价都被认真看见。</p>
+                <h3>扫码送蛋</h3>
+                <p>扫码即可添加蛋蛋，开启属于宝宝的专属小窝。</p>
               </div>
               <div class="album-card" data-album="1">
-                <div class="album-visual" aria-hidden="true">排</div>
+                <div class="album-preview" aria-label="定制排面相册预览">
+                  <img src="assets/p2-paid.webp" alt="定制排面截图一" class="wide on" />
+                  <img src="assets/p3-paid.webp" alt="定制排面截图二" class="wide" />
+                </div>
                 <h3>定制排面</h3>
                 <p>按喜好与专属需求安排细节，把适合宝宝的心意摆到台面上。</p>
               </div>
               <div class="album-card" data-album="2">
-                <div class="album-visual" aria-hidden="true">喜</div>
+                <div class="album-preview" aria-label="幸福瞬间相册预览">
+                  <img src="assets/p4-happy.webp" alt="幸福瞬间截图一" class="on" />
+                  <img src="assets/p5-happy.webp" alt="幸福瞬间截图二" />
+                  <img src="assets/p6-happy.webp" alt="幸福瞬间截图三" />
+                </div>
                 <h3>幸福瞬间</h3>
                 <p>记录聊天、惊喜和相处中的小瞬间，留住软软暖暖的片刻。</p>
               </div>
               <div class="album-card" data-album="3">
-                <div class="album-visual" aria-hidden="true">码</div>
-                <h3>扫码送蛋</h3>
-                <p>扫码入口预留展示位，后续可放置二维码或专属添加方式。</p>
+                <div class="album-preview" aria-label="板评相册预览">
+                  <img src="assets/p7-board.webp" alt="板评小作文截图" class="on" />
+                  <img src="assets/board-1.webp" alt="OK绷测评反馈截图" />
+                  <img src="assets/board-2.webp" alt="OKB五星好评截图" />
+                  <img src="assets/board-3.webp" alt="聊天好评截图" />
+                </div>
+                <h3>板评</h3>
+                <p>收集宝宝的真实反馈与相处感受，每一条评价都被认真看见。</p>
               </div>
             </div>
           </div>
@@ -920,6 +994,16 @@
       </nav>
     </section>
   </main>
+
+  <div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="lightbox-card">
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭大图">×</button>
+      <button type="button" class="lightbox-arrow" id="lightboxPrev" aria-label="上一张大图">‹</button>
+      <img id="lightboxImage" src="" alt="相册大图" />
+      <button type="button" class="lightbox-arrow" id="lightboxNext" aria-label="下一张大图">›</button>
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
 
   <script>
     const cards = Array.from(document.querySelectorAll('.card'));
@@ -973,16 +1057,51 @@
     }
     albumCards.forEach(card => card.addEventListener('click', () => setAlbum(Number(card.dataset.album))));
 
-    const boardImages = Array.from(document.querySelectorAll('.board-preview img'));
-    let boardIndex = 0;
-    function setBoardImage(index) {
-      boardIndex = (index + boardImages.length) % boardImages.length;
-      boardImages.forEach((img, i) => img.classList.toggle('on', i === boardIndex));
+    const lightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    let lightboxList = [];
+    let lightboxIndex = 0;
+
+    function openLightbox(card, target) {
+      lightboxList = Array.from(card.querySelectorAll('img'));
+      lightboxIndex = lightboxList.indexOf(target);
+      if (lightboxIndex < 0) lightboxIndex = 0;
+      showLightbox();
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
     }
-    boardImages.forEach((img, i) => img.addEventListener('click', e => {
+    function showLightbox() {
+      const img = lightboxList[lightboxIndex];
+      lightboxImage.src = img.src;
+      lightboxImage.alt = img.alt;
+      lightboxCaption.textContent = `${lightboxIndex + 1} / ${lightboxList.length}`;
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+    }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', e => {
       e.stopPropagation();
-      setBoardImage(i);
-    }));
+      lightboxIndex = (lightboxIndex - 1 + lightboxList.length) % lightboxList.length;
+      showLightbox();
+    });
+    document.getElementById('lightboxNext').addEventListener('click', e => {
+      e.stopPropagation();
+      lightboxIndex = (lightboxIndex + 1) % lightboxList.length;
+      showLightbox();
+    });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    albumCards.forEach(card => {
+      card.querySelectorAll('.album-preview img').forEach(img => {
+        img.addEventListener('click', e => {
+          e.stopPropagation();
+          openLightbox(card, img);
+        });
+      });
+    });
 
     let touchStartX = 0;
     document.getElementById('deck').addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
@@ -1000,6 +1119,12 @@
     }, { passive: true });
 
     document.addEventListener('keydown', e => {
+      if (lightbox.classList.contains('open')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+        if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+        return;
+      }
       if (e.key === 'ArrowRight') {
         if (current === cards.length - 2) setAlbum(albumIndex + 1);
         else show(current + 1);
