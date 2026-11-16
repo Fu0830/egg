@@ -720,6 +720,28 @@
     .skip-splash:hover { transform: translateY(-2px); }
     .skip-splash:active { transform: scale(.95); }
 
+    .bgm-toggle {
+      position: fixed;
+      right: 16px;
+      bottom: 18px;
+      z-index: 55;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: rgba(255, 253, 246, .92);
+      color: var(--yolk-deep, #8b5a18);
+      box-shadow: 0 8px 18px rgba(176, 116, 18, .16);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      line-height: 1;
+    }
+    .bgm-toggle[aria-pressed="false"] { opacity: .76; }
+    .bgm-toggle:hover { transform: translateY(-1px); }
+    .bgm-toggle:active { transform: scale(.95); }
+
     @media (max-width: 380px) {
       .card { padding: 22px 18px 76px; }
       .info-row, .benefit { grid-template-columns: 1fr; gap: 8px; }
@@ -929,6 +951,9 @@
     </section>
   </main>
 
+  <audio id="bgm" src="audio/bgm.m4a" loop preload="none" aria-label="背景音乐"></audio>
+  <button type="button" class="bgm-toggle" id="bgmToggle" aria-label="背景音乐开关" aria-pressed="true">♪</button>
+
   <div class="photo-lightbox" id="photoLightbox" aria-hidden="true">
     <div class="lightbox-card">
       <button type="button" class="lightbox-close" id="lightboxClose" aria-label="关闭大图">×</button>
@@ -1027,8 +1052,48 @@
       if (e.key === 'ArrowLeft') show(current - 1);
     });
 
+    const bgm = document.getElementById('bgm');
+    const bgmToggle = document.getElementById('bgmToggle');
+    let bgmStarted = false;
+    let bgmFailed = false;
+
+    async function startBgm() {
+      if (bgmStarted) return;
+      bgmStarted = true;
+      try {
+        bgm.volume = .72;
+        await bgm.play();
+        bgmFailed = false;
+      } catch (err) {
+        bgmFailed = true;
+      }
+      refreshBgmButton();
+    }
+    function toggleBgm() {
+      if (bgm.paused) {
+        startBgm();
+      } else {
+        bgm.pause();
+      }
+      refreshBgmButton();
+    }
+    function refreshBgmButton() {
+      const playing = !bgm.paused;
+      bgmToggle.setAttribute('aria-pressed', String(playing));
+      bgmToggle.textContent = playing ? '♪' : '✕';
+      bgmToggle.setAttribute('aria-label', playing ? '关闭背景音乐' : '开启背景音乐');
+    }
+    bgm.addEventListener('play', refreshBgmButton);
+    bgm.addEventListener('pause', refreshBgmButton);
+    bgm.addEventListener('error', () => { bgmFailed = true; });
+    bgmToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      toggleBgm();
+    });
+
     const splash = document.getElementById('splash');
     function hideSplash() {
+      startBgm();
       splash.classList.add('hide');
       setTimeout(() => splash.remove(), 600);
     }
@@ -1038,6 +1103,7 @@
     const pan = document.getElementById('pan');
     let tapped = false;
     function tapEgg() {
+      startBgm();
       if (tapped) {
         hideSplash();
         return;
