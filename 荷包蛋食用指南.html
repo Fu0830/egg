@@ -384,6 +384,29 @@
       font-size: 15px;
     }
     .benefit .give { line-height: 1.7; font-size: 14px; }
+    .benefit-bubble {
+      position: relative;
+      margin: 4px 6px 0;
+      padding: 13px 16px;
+      border-radius: 18px 18px 18px 6px;
+      background: var(--cream-2);
+      border: 1px dashed var(--yolk);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .benefit-bubble::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: -7px;
+      width: 14px;
+      height: 14px;
+      background: var(--cream-2);
+      border-left: 1px dashed var(--yolk);
+      border-top: 1px dashed var(--yolk);
+      transform: rotate(45deg);
+    }
     .bonus-note {
       margin-top: 16px;
       padding: 16px;
@@ -583,8 +606,9 @@
             <div class="benefit"><div class="need">累消 888</div><div class="give">返 28.8</div></div>
             <div class="benefit"><div class="need">累消 1314</div><div class="give">赠送板卡 / 礼物单一张</div></div>
             <div class="benefit"><div class="need">累消 2000</div><div class="give">返 38.8</div></div>
-            <div class="benefit"><div class="need">累消 3000</div><div class="give">返 38.8；以上为例<br />后续每满 1000 返 38.8</div></div>
+            <div class="benefit"><div class="need">累消 3000</div><div class="give">返 38.8</div></div>
           </div>
+          <div class="benefit-bubble">以上为例，后续每满 1000 返 38.8</div>
           <div class="bonus-note">
             累消福利可叠加。例如消费满 3000：返 18.8 + 28.8 + 板卡 + 38.8 + 38.8 = 125.2 + 板卡。
           </div>
