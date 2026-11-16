@@ -540,6 +540,99 @@
       letter-spacing: .06em;
     }
 
+    .gallery-stage {
+      position: relative;
+      height: 330px;
+      margin: 4px -4px 18px;
+      perspective: 900px;
+      overflow: hidden;
+    }
+    .gallery-track {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+    }
+    .album-card {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 198px;
+      height: 276px;
+      margin-left: -99px;
+      margin-top: -138px;
+      border-radius: 28px;
+      background: var(--eggwhite);
+      border: 1px solid var(--line);
+      box-shadow: 0 16px 34px rgba(176, 116, 18, .16);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform .38s cubic-bezier(.34, 1.3, .64, 1), opacity .38s ease, filter .38s ease;
+      backface-visibility: hidden;
+    }
+    .album-visual {
+      width: 132px;
+      height: 132px;
+      border-radius: 34px;
+      display: grid;
+      place-items: center;
+      margin: 10px 0 18px;
+      font-size: 42px;
+      color: var(--yolk-deep);
+      background: var(--cream-2);
+      box-shadow: inset 0 -8px 16px rgba(190, 126, 28, .08);
+      position: relative;
+    }
+    .album-visual::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border-radius: 26px;
+      border: 1.5px dashed rgba(218, 153, 38, .32);
+    }
+    .album-card h3 {
+      font-size: 18px;
+      letter-spacing: .08em;
+      margin: 0 0 8px;
+      color: var(--ink);
+    }
+    .album-card p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--ink-soft);
+    }
+    .album-card.album-current { transform: rotateY(0) translateZ(72px) scale(1); opacity: 1; filter: none; z-index: 3; }
+    .album-card.album-left { transform: rotateY(28deg) translateX(-150px) translateZ(-70px) scale(.82); opacity: .34; filter: saturate(.8); z-index: 1; }
+    .album-card.album-right { transform: rotateY(-28deg) translateX(150px) translateZ(-70px) scale(.82); opacity: .34; filter: saturate(.8); z-index: 1; }
+    .album-card.album-hidden-left { transform: translate(-230px, 10px) translateZ(-150px) scale(.72); opacity: 0; z-index: 0; }
+    .album-card.album-hidden-right { transform: translate(230px, 10px) translateZ(-150px) scale(.72); opacity: 0; z-index: 0; }
+    .gallery-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .gallery-dots button {
+      border: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e8cf93;
+      padding: 0;
+      cursor: pointer;
+      transition: all .18s ease;
+    }
+    .gallery-dots button.on { width: 24px; border-radius: 999px; background: var(--yolk); }
+    .gallery-hint {
+      text-align: center;
+      font-size: 13px;
+      color: var(--ink-soft);
+      letter-spacing: .08em;
+    }
+
     .nav {
       position: absolute;
       left: 0;
@@ -631,7 +724,7 @@
     <section class="deck" id="deck">
       <!-- 01 封面 -->
       <article class="card active" data-index="0">
-        <div class="card-top"><span><span class="dot">✦</span>NAME · 蛋蛋</span><span>01 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>NAME · 蛋蛋</span><span>01 / 08</span></div>
         <div class="card-content hero">
           <div class="avatar" aria-hidden="true">蛋</div>
           <h1>蛋蛋</h1>
@@ -648,7 +741,7 @@
 
       <!-- 02 自我介绍 -->
       <article class="card" data-index="1">
-        <div class="card-top"><span><span class="dot">✦</span>PROFILE · 介绍</span><span>02 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>PROFILE · 介绍</span><span>02 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title">关于蛋蛋</h2>
           <div class="section-kicker">A LITTLE ABOUT ME</div>
@@ -665,7 +758,7 @@
 
       <!-- 03 在线时间 -->
       <article class="card" data-index="2">
-        <div class="card-top"><span><span class="dot">✦</span>TIME · 在线</span><span>03 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>TIME · 在线</span><span>03 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title">在线时间</h2>
           <div class="section-kicker">WHEN TO FIND ME</div>
@@ -682,7 +775,7 @@
 
       <!-- 04 相处习惯 -->
       <article class="card" data-index="3">
-        <div class="card-top"><span><span class="dot">✦</span>STYLE · 相处</span><span>04 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>STYLE · 相处</span><span>04 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title">相处方式</h2>
           <div class="section-kicker">HOW WE GET ALONG</div>
@@ -699,7 +792,7 @@
 
       <!-- 05 直属福利 -->
       <article class="card" data-index="4">
-        <div class="card-top"><span><span class="dot">✦</span>BENEFIT · 福利</span><span>05 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>BENEFIT · 福利</span><span>05 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title">直属福利</h2>
           <div class="section-kicker">EGG BENEFITS</div>
@@ -720,7 +813,7 @@
 
       <!-- 06 心意说明 -->
       <article class="card" data-index="5">
-        <div class="card-top"><span><span class="dot">✦</span>HEART · 心意</span><span>06 / 07</span></div>
+        <div class="card-top"><span><span class="dot">✦</span>HEART · 心意</span><span>06 / 08</span></div>
         <div class="card-content">
           <h2 class="section-title">为什么这样安排</h2>
           <div class="section-kicker">A SMALL PROMISE</div>
@@ -740,9 +833,45 @@
         <div class="card-bottom"><span>DANDAN · HEART</span><span>06</span></div>
       </article>
 
-      <!-- 07 结尾 -->
-      <article class="card end-card" data-index="6">
-        <div class="card-top"><span><span class="dot">✦</span>END · 结尾</span><span>07 / 07</span></div>
+      <!-- 07 转盘相册 -->
+      <article class="card" data-index="6">
+        <div class="card-top"><span><span class="dot">✦</span>ALBUM · 相册</span><span>07 / 08</span></div>
+        <div class="card-content">
+          <h2 class="section-title">精选相册</h2>
+          <div class="section-kicker">TURN THE EGG ALBUM</div>
+          <div class="gallery-stage" id="galleryStage" aria-label="交互式转盘相册">
+            <div class="gallery-track" id="galleryTrack">
+              <div class="album-card" data-album="0">
+                <div class="album-visual" aria-hidden="true">评</div>
+                <h3>板评</h3>
+                <p>收集宝宝的真实反馈与相处感受，每一条评价都被认真看见。</p>
+              </div>
+              <div class="album-card" data-album="1">
+                <div class="album-visual" aria-hidden="true">排</div>
+                <h3>定制排面</h3>
+                <p>按喜好与专属需求安排细节，把适合宝宝的心意摆到台面上。</p>
+              </div>
+              <div class="album-card" data-album="2">
+                <div class="album-visual" aria-hidden="true">喜</div>
+                <h3>幸福瞬间</h3>
+                <p>记录聊天、惊喜和相处中的小瞬间，留住软软暖暖的片刻。</p>
+              </div>
+              <div class="album-card" data-album="3">
+                <div class="album-visual" aria-hidden="true">码</div>
+                <h3>扫码送蛋</h3>
+                <p>扫码入口预留展示位，后续可放置二维码或专属添加方式。</p>
+              </div>
+            </div>
+          </div>
+          <div class="gallery-dots" id="galleryDots" aria-label="相册切换"></div>
+          <div class="gallery-hint">左右滑动或点按圆点，翻到喜欢的那一页</div>
+        </div>
+        <div class="card-bottom"><span>DANDAN · ALBUM</span><span>07</span></div>
+      </article>
+
+      <!-- 08 结尾 -->
+      <article class="card end-card" data-index="7">
+        <div class="card-top"><span><span class="dot">✦</span>END · 结尾</span><span>08 / 08</span></div>
         <div class="card-content">
           <div class="end-egg" aria-hidden="true"></div>
           <p class="blessing">谢谢这么可爱的你<br />看完蛋蛋的碎碎念</p>
@@ -782,6 +911,35 @@
     document.getElementById('prev').addEventListener('click', () => show(current - 1));
     document.getElementById('next').addEventListener('click', () => show(current + 1));
 
+    const albumCards = Array.from(document.querySelectorAll('.album-card'));
+    const galleryDots = document.getElementById('galleryDots');
+    let albumIndex = 0;
+
+    albumCards.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', `查看第 ${i + 1} 张相册`);
+      b.addEventListener('click', () => setAlbum(i));
+      galleryDots.appendChild(b);
+    });
+    const albumDots = Array.from(galleryDots.children);
+
+    function albumLayout(index) {
+      albumCards.forEach((card, i) => {
+        const diff = ((i - index) % albumCards.length + albumCards.length) % albumCards.length;
+        const cls = diff === 0 ? 'album-current'
+          : diff === 1 ? 'album-right'
+          : diff === albumCards.length - 1 ? 'album-left'
+          : diff < albumCards.length / 2 ? 'album-hidden-right' : 'album-hidden-left';
+        card.className = `album-card ${cls}`;
+      });
+      albumDots.forEach((dot, i) => dot.classList.toggle('on', i === index));
+    }
+    function setAlbum(index) {
+      albumIndex = (index + albumCards.length) % albumCards.length;
+      albumLayout(albumIndex);
+    }
+    albumCards.forEach(card => card.addEventListener('click', () => setAlbum(Number(card.dataset.album))));
     let touchStartX = 0;
     document.getElementById('deck').addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
     document.getElementById('deck').addEventListener('touchend', e => {
@@ -789,9 +947,23 @@
       if (Math.abs(delta) > 44) show(current + (delta < 0 ? 1 : -1));
     }, { passive: true });
 
+    const galleryStage = document.getElementById('galleryStage');
+    let albumTouchStartX = 0;
+    galleryStage.addEventListener('touchstart', e => { albumTouchStartX = e.changedTouches[0].clientX; }, { passive: true });
+    galleryStage.addEventListener('touchend', e => {
+      const delta = e.changedTouches[0].clientX - albumTouchStartX;
+      if (Math.abs(delta) > 36) setAlbum(albumIndex + (delta < 0 ? 1 : -1));
+    }, { passive: true });
+
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') show(current + 1);
-      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') {
+        if (current === cards.length - 2) setAlbum(albumIndex + 1);
+        else show(current + 1);
+      }
+      if (e.key === 'ArrowLeft') {
+        if (current === cards.length - 2) setAlbum(albumIndex - 1);
+        else show(current - 1);
+      }
     });
 
     const splash = document.getElementById('splash');
@@ -823,6 +995,7 @@
       }
     });
 
+    albumLayout(0);
     show(0);
   </script>
 </body>
